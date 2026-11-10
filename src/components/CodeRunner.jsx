@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Icon from "./Icons.jsx";
 import { DataTable } from "./ui.jsx";
 import { runSql, resetDatabase } from "../lib/sqlEngine.js";
 import { runPython } from "../lib/pythonEngine.js";
 import { useProgress } from "../lib/progress.jsx";
+import { highlightCode } from "../lib/highlight.js";
 
 // Editable, runnable code editor with live results.
 // lang: "sql" (bundled SQLite engine, university DB preloaded)
@@ -13,7 +14,26 @@ export default function CodeRunner({ title, lang = "sql", initialCode, expected,
   const [status, setStatus] = useState("idle"); // idle | loading | running | done | error
   const [result, setResult] = useState(null); // {tables, message} | {output} | {error}
   const [statusNote, setStatusNote] = useState("");
+  const hlRef = useRef(null);
+  const taRef = useRef(null);
   const { bumpCodeRuns } = useProgress();
+
+  // grow the editor with its content (up to a cap), then scroll + sync
+  useEffect(() => {
+    const ta = taRef.current;
+    if (!ta) return;
+    ta.style.height = "auto";
+    ta.style.height = `${Math.min(ta.scrollHeight, 480)}px`;
+  }, [code]);
+
+  // keep the highlight layer aligned with the textarea's scroll position
+  function syncScroll(e) {
+    const ta = e.target;
+    if (hlRef.current) {
+      hlRef.current.scrollTop = ta.scrollTop;
+      hlRef.current.scrollLeft = ta.scrollLeft;
+    }
+  }
 
   async function run() {
     setStatus("running");
@@ -98,15 +118,22 @@ export default function CodeRunner({ title, lang = "sql", initialCode, expected,
           </button>
         </div>
       </div>
-      <textarea
-        className="code-input"
-        style={minHeight ? { minHeight } : undefined}
-        value={code}
-        spellCheck={false}
-        onChange={(e) => setCode(e.target.value)}
-        onKeyDown={onKeyDown}
-        aria-label={`Editable ${lang} code: ${title}`}
-      />
+      <div className="code-editor" style={minHeight ? { minHeight } : undefined}>
+        <pre className="code-hl" ref={hlRef} aria-hidden="true">
+          <code dangerouslySetInnerHTML={{ __html: highlightCode(code, lang) + "\n" }} />
+        </pre>
+        <textarea
+          className="code-input"
+          ref={taRef}
+          value={code}
+          spellCheck={false}
+          wrap="off"
+          onChange={(e) => setCode(e.target.value)}
+          onKeyDown={onKeyDown}
+          onScroll={syncScroll}
+          aria-label={`Editable ${lang} code: ${title}`}
+        />
+      </div>
       {result && (
         <div className="runner-output">
           <div className="out-label">

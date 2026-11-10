@@ -56,16 +56,30 @@ Dashboard has a **Reset progress** button.
   route-keyed transition shell.
 - **Floating pill navbar**: the top nav is a detached, rounded, frosted-glass pill
   (max-width, centered) — not a full-width bar.
-- **Side drawer on mobile** (≤900 px): a hamburger opens a right-side drawer with
-  all pages plus an **expandable Lectures menu** listing all 8 lectures; closes on
-  navigation, backdrop click, or Escape, and locks body scroll while open.
+- **Side drawer on mobile** (≤900 px, i.e. exactly when the top nav links are
+  hidden): a hamburger opens a right-side drawer with all pages plus an
+  **expandable Lectures menu** listing all 8 lectures; closes on navigation,
+  backdrop click, or Escape, and locks body scroll while open. The drawer is
+  portaled to `<body>` and hard-hidden on desktop — it can only ever appear in
+  mobile mode.
+- **Color-coded code everywhere**: a tiny dependency-free highlighter
+  (`src/lib/highlight.js`) tokenizes SQL and Python — bright-lime keywords,
+  soft-lime strings, lime numbers, neutral gray-green comments. Live editors
+  render it as an overlay under a transparent-text textarea (perfect alignment,
+  auto-growing up to ~20 lines), and static PostgreSQL/Python cards use the same
+  theme.
+- **Enhanced progress & checkboxes**: progress bars shimmer as they fill, lecture
+  bars show 10% tick marks, the donut glows on hover; part-completion uses a
+  custom animated lime checkbox (pop + check-draw) and the parts-rail circles
+  fire a ring pulse when a part is completed.
 - **Dynamic ambient background**: three slow-drifting lime orbs plus a faint dot
   grid behind every page (disabled under `prefers-reduced-motion`).
 - **Floating compiler button** pinned to the right edge, vertical middle, on every
   page — one tap opens the Compiler.
 - All icons are hand-drawn inline SVGs — no emoji, no keyboard glyphs.
 - Other animations: rising cards, animated progress bars and donut, floating hero
-  glows, pop-in checkmarks, FAB pulse ring.
+  glows with a dot-grid texture, pop-in checkmarks, FAB pulse ring, button press
+  feedback, lime hairlines on cards and section titles.
 - Fully responsive: grids collapse, tables scroll, and the parts rail stacks above
   the content on phones.
 
@@ -111,6 +125,7 @@ src/
       lecture01.js … lecture08.js   # all content: parts, notes, examples, quizzes
   lib/
     progress.jsx             # localStorage progress store (React context)
+    highlight.js             # tiny SQL/Python syntax highlighter (lime theme)
     sqlEngine.js             # sql.js (bundled SQLite) runner
     pythonEngine.js          # Pyodide loader + runner
   components/

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import Icon from "./Icons.jsx";
 import { useProgress } from "../lib/progress.jsx";
@@ -88,13 +89,16 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* side drawer with expandable lectures menu */}
-      <div
-        className={`drawer-backdrop${open ? " show" : ""}`}
-        onClick={() => setOpen(false)}
-        aria-hidden="true"
-      />
-      <aside className={`drawer${open ? " open" : ""}`} aria-hidden={!open} aria-label="Site menu">
+      {/* side drawer with expandable lectures menu — portaled to <body> so no
+          ancestor transform can ever disturb its position:fixed behavior */}
+      {createPortal(
+        <>
+          <div
+            className={`drawer-backdrop${open ? " show" : ""}`}
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
+          <aside className={`drawer${open ? " open" : ""}`} aria-hidden={!open} aria-label="Site menu">
         <div className="drawer-head">
           <span className="drawer-title">
             <span className="logo-mark" style={{ width: 30, height: 30, borderRadius: 10 }}>
@@ -170,6 +174,9 @@ export default function Navbar() {
           </div>
         </div>
       </aside>
+        </>,
+        document.body
+      )}
     </>
   );
 }

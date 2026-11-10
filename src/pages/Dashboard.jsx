@@ -127,8 +127,8 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div style={{ width: 180, minWidth: 120 }}>
-                  <ProgressBar percent={st.percent} thin />
-                  <div className="bar-label"><span>{st.percent}%</span></div>
+                  <ProgressBar percent={st.percent} thin ticks />
+                  <div className="bar-label"><span>progress</span><span className="pct">{st.percent}%</span></div>
                 </div>
               </div>
             );

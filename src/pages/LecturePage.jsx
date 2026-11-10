@@ -242,9 +242,9 @@ export default function LecturePage() {
                 <label className="flex" style={{ cursor: "pointer", userSelect: "none" }}>
                   <input
                     type="checkbox"
+                    className="fancy"
                     checked={partDone}
                     onChange={(e) => togglePart(lecture.num, part.id, e.target.checked)}
-                    style={{ width: 18, height: 18, accentColor: "var(--good)" }}
                   />
                   <span style={{ fontWeight: 600 }}>
                     {partDone ? "Part completed" : "Mark this part as complete"}

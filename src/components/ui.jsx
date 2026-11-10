@@ -1,4 +1,5 @@
 import Icon from "./Icons.jsx";
+import { highlightCode } from "../lib/highlight.js";
 
 // Pretty, readable table used across notes and query results.
 export function DataTable({ caption, head, rows, compact, highlight, nullText = "NULL" }) {
@@ -83,25 +84,30 @@ export function Callout({ tone = "tip", title, children }) {
 }
 
 // Static code block for code that is read, not run (e.g. PostgreSQL-only syntax).
+// Color-coded with the same lime-family theme as the live editors.
 export function CodeBlock({ lang, code }) {
   return (
     <div className="codeblock">
-      <div className="code-lang">{lang}</div>
-      <pre>{code}</pre>
+      <div className="code-lang">
+        <Icon name="code" size={12} /> {lang}
+      </div>
+      <pre>
+        <code dangerouslySetInnerHTML={{ __html: highlightCode(code, lang) }} />
+      </pre>
     </div>
   );
 }
 
-export function ProgressBar({ percent, thin, label, right }) {
+export function ProgressBar({ percent, thin, label, right, ticks, pctClass }) {
   return (
     <div>
-      <div className={`bar${thin ? " thin" : ""}`}>
+      <div className={`bar${thin ? " thin" : ""}${ticks ? " ticks" : ""}`}>
         <div className="bar-fill" style={{ width: `${Math.min(100, Math.max(0, percent))}%` }} />
       </div>
       {(label || right) && (
         <div className="bar-label">
           <span>{label}</span>
-          {right && <span>{right}</span>}
+          {right && <span className={pctClass}>{right}</span>}
         </div>
       )}
     </div>
