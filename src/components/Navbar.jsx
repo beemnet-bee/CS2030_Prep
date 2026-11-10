@@ -6,6 +6,7 @@ const links = [
   { to: "/", label: "Home", end: true },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/lectures", label: "Lectures" },
+  { to: "/playground", label: "Compiler" },
   { to: "/exam", label: "Practice Exam" },
   { to: "/cheatsheet", label: "Cheat Sheet" },
   { to: "/glossary", label: "Glossary" },

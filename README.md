@@ -17,6 +17,7 @@ path with live code, progress tracking, and exam practice — no account needed.
 | **Practice Exam** (`#/exam`) | 40 questions drawn from all lectures in random order, with instant scoring and full explanations |
 | **Cheat Sheet** (`#/cheatsheet`) | Every must-remember table (three-valued logic, constraints, join counts, ACID, ranking rules, OLAP costs…) plus the exam-day checklist |
 | **Glossary** (`#/glossary`) | 70+ searchable, lecture-filterable definitions |
+| **Compiler** (`#/playground`) | Free playground with SQL and Python tabs — write and run anything against the university database. Reachable from the floating lime button on the right edge of every page, and from the navbar |
 
 ### Live code engines
 
@@ -40,12 +41,20 @@ Dashboard has a **Reset progress** button.
 
 ### Design
 
-- **Space Grotesk** for UI text, **Cascadia Mono / Cascadia Code** for code
-  (bundled locally via Fontsource — no CDN needed for fonts).
-- Light mode by default with a dark-mode toggle (moon/sun in the navbar).
+- **Quicksand** for UI text, **Cascadia Mono** for code (both bundled locally via
+  Fontsource — no CDN needed for fonts).
+- Theme accent **`#81f700`** (vivid lime) with a mint gradient partner; light mode by
+  default and a dark mode where the lime pops on near-black green surfaces
+  (moon/sun toggle in the navbar).
+- **Splash screen** on every page load: lime logo pop, sweeping progress bar,
+  auto-dismisses after ~2 s (click to skip).
+- **Floating compiler button** pinned to the right edge, vertical middle, on every
+  page — one tap opens the Compiler.
 - All icons are hand-drawn inline SVGs — no emoji, no keyboard glyphs.
-- Animations: page fades, rising cards, animated progress bars and donut, floating
-  hero blobs, pop-in checkmarks.
+- Animations: splash, page fades, rising cards, animated progress bars and donut,
+  floating hero glows, pop-in checkmarks, FAB pulse ring.
+- Fully responsive: the navbar wraps into a scrollable second row on phones, grids
+  collapse, tables scroll, and the parts rail stacks above the content.
 
 ## Run it
 
@@ -93,12 +102,14 @@ src/
     pythonEngine.js          # Pyodide loader + runner
   components/
     Icons.jsx                # hand-drawn SVG icon set
+    Splash.jsx               # animated splash screen
+    FloatingCompilerButton.jsx  # right-edge floating button → Compiler
     ui.jsx                   # DataTable, Callout, CodeBlock, ProgressBar
     CodeRunner.jsx           # editable, runnable code editor
     QuizCard.jsx  SectionRenderer.jsx  Navbar.jsx
   pages/
     Home.jsx  Dashboard.jsx  Lectures.jsx  LecturePage.jsx
-    Exam.jsx  CheatSheet.jsx GlossaryPage.jsx
+    Exam.jsx  CheatSheet.jsx GlossaryPage.jsx  Playground.jsx
   styles/global.css          # design system (light + dark themes)
 ```
 

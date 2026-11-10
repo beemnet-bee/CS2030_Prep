@@ -14,11 +14,12 @@ export default function Home() {
           <span className="hero-kicker">
             <Icon name="sparkles" size={15} /> {course.code} · {course.name}
           </span>
-          <h1>Master every lecture.<br />Walk into the exam ready.</h1>
+          <h1>Master every lecture.<br />Walk into the exam <span className="hl">ready</span>.</h1>
           <p className="lead">
             All 8 lectures of the course turned into an interactive study path — plain-language notes,
-            live SQL and Python you can run in the browser, quick-check questions after every idea,
-            summaries, a cheat sheet, and a practice exam built from the lecture questions.
+            live SQL and Python you can run in the browser, a free compiler playground, quick-check
+            questions after every idea, summaries, a cheat sheet, and a practice exam built from the
+            lecture questions.
           </p>
           <div className="hero-actions">
             {lastLecture ? (
