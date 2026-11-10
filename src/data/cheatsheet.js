@@ -1,0 +1,227 @@
+// The last-night-before-the-exam page: every must-remember table in one place.
+export const cheatSections = [
+  {
+    id: "why",
+    title: "Why databases (L1)",
+    icon: "database",
+    table: {
+      head: ["Problem", "Files", "Database"],
+      rows: [
+        ["Redundancy, inconsistency", "copies drift apart", "one shared copy"],
+        ["Difficult access", "a program per question", "one declarative query"],
+        ["Data isolation", "many files, many formats", "one data model"],
+        ["Integrity", "rules buried in code", "declared once, always checked"],
+        ["Atomicity", "half-finished updates", "transactions, all or nothing"],
+        ["Concurrent access", "lost updates", "concurrency control"],
+        ["Security", "all or nothing access", "rights per table and column"],
+      ],
+    },
+    bullets: [
+      "DBMS = interrelated data + programs that access it, conveniently and efficiently.",
+      "Schema = design; instance = rows now. Physical data independence: index changes never break apps.",
+      "Engine: query processor (DDL interpreter, DML compiler, evaluation engine) + storage manager (file, buffer, authorization, indices) + transaction manager.",
+    ],
+  },
+  {
+    id: "algebra",
+    title: "Relational algebra (L2)",
+    icon: "layers",
+    table: {
+      head: ["Symbol", "Name", "SQL"],
+      rows: [
+        ["σ", "select rows", "WHERE"],
+        ["Π", "project columns", "SELECT (+ DISTINCT for set semantics)"],
+        ["⋈", "join", "JOIN … ON (r ⋈θ s = σθ(r × s))"],
+        ["∪ / − / ∩", "union / difference / intersection", "UNION / EXCEPT / intersection = r − (r − s)"],
+        ["×", "Cartesian product", "FROM a, b (|r|·|s| rows)"],
+        ["ρ", "rename", "alias (needed when a table is used twice)"],
+        ["γ", "aggregation", "GROUP BY + aggregates"],
+      ],
+    },
+    bullets: [
+      "Keys: superkey identifies; candidate = minimal; primary = chosen; foreign must resolve.",
+      "12 × 15 = 180 product pairs → 15 join matches → 9 distinct teaching instructors.",
+      "Filter early: σ before ⋈ (180 → 30 pairs).",
+    ],
+  },
+  {
+    id: "threevl",
+    title: "Three-valued logic (L3)",
+    icon: "alert",
+    table: {
+      head: ["p", "NOT p", "p AND TRUE", "p AND FALSE", "p OR TRUE", "p OR FALSE"],
+      rows: [
+        ["TRUE", "FALSE", "TRUE", "FALSE", "TRUE", "TRUE"],
+        ["FALSE", "TRUE", "FALSE", "FALSE", "TRUE", "FALSE"],
+        ["UNKNOWN", "UNKNOWN", "UNKNOWN", "FALSE", "TRUE", "UNKNOWN"],
+      ],
+    },
+    bullets: [
+      "WHERE keeps TRUE only.",
+      "x = NULL is always UNKNOWN → use IS NULL / IS NOT NULL.",
+      "CHECK rejects FALSE but lets UNKNOWN (NULL) pass; NOT NULL rejects NULLs.",
+      "LIKE: % = any sequence, _ = one character; BETWEEN is inclusive; IN is membership.",
+    ],
+  },
+  {
+    id: "constraints",
+    title: "Constraints (L3/L6)",
+    icon: "shield",
+    table: {
+      head: ["Constraint", "Rejects"],
+      rows: [
+        ["PRIMARY KEY", "a repeated identity"],
+        ["NOT NULL", "a missing value"],
+        ["UNIQUE", "a repeated supplied value (NULLs allowed)"],
+        ["CHECK", "a value failing the rule (NULL passes)"],
+        ["FOREIGN KEY", "a reference with no matching row"],
+        ["ON DELETE CASCADE / SET NULL / SET DEFAULT", "deletes children / clears FK / uses default"],
+        ["DEFERRABLE INITIALLY DEFERRED", "checks the FK at COMMIT, not per statement"],
+      ],
+    },
+    bullets: [
+      "Composite foreign key must match one complete referenced key.",
+      "SQLite: PRAGMA foreign_keys = ON before a transaction starts.",
+    ],
+  },
+  {
+    id: "queryorder",
+    title: "Logical query order (L4)",
+    icon: "list",
+    table: {
+      head: ["Stage", "Job"],
+      rows: [
+        ["FROM / JOIN", "build input rows"],
+        ["WHERE", "keep qualifying rows"],
+        ["GROUP BY + aggregates", "form and summarise groups"],
+        ["HAVING", "keep qualifying groups"],
+        ["SELECT / DISTINCT", "choose outputs"],
+        ["ORDER BY", "arrange the result"],
+      ],
+    },
+    bullets: [
+      "COUNT(*) counts rows; COUNT(x) ignores NULL; COUNT(DISTINCT x) counts distinct values.",
+      "Aggregates on empty/all-NULL input: COUNT 0, others NULL.",
+      "LEFT JOIN + COUNT(t.x) counts real matches (0 for unmatched rows); COUNT(*) would say 1.",
+      "Anti-join: LEFT JOIN … WHERE t.x IS NULL.",
+      "ON shapes the match (padded rows survive); WHERE filters the final result (padded rows die). 13 vs 8 rows in the lecture example.",
+    ],
+  },
+  {
+    id: "subqueries",
+    title: "Subqueries & set ops (L5)",
+    icon: "branch",
+    table: {
+      head: ["Need", "Form"],
+      rows: [
+        ["Membership", "IN (SELECT …)"],
+        ["At least one match (NULL-safe)", "EXISTS / NOT EXISTS"],
+        ["One value to compare", "scalar subquery (no rows → NULL; many rows → error)"],
+        ["A table to process", "FROM subquery or WITH (CTE)"],
+        ["Has ALL of Y", "NOT EXISTS (required EXCEPT provided)"],
+      ],
+    },
+    bullets: [
+      "NOT IN trap: one NULL in the list → UNKNOWN → no rows.",
+      "x > ALL (empty) = TRUE; x > SOME (empty) = FALSE.",
+      "Set ops need same arity + compatible domains; ALL keeps duplicate counts.",
+    ],
+  },
+  {
+    id: "acid",
+    title: "Transactions & access (L6)",
+    icon: "box",
+    table: {
+      head: ["Property", "Meaning"],
+      rows: [
+        ["Atomicity", "all changes commit or none remain"],
+        ["Consistency", "declared invariants preserved"],
+        ["Isolation", "concurrent transactions controlled"],
+        ["Durability", "committed data survives failures"],
+      ],
+    },
+    bullets: [
+      "BEGIN → COMMIT keeps; ROLLBACK undoes everything (including trigger effects).",
+      "Defaults: omitted column → DEFAULT value; explicit NULL → NULL.",
+      "Index: same logical results, faster selective reads, storage + write maintenance costs.",
+      "Grants are cumulative: a view grant never removes a base-table privilege; check all access paths.",
+      "WITH GRANT OPTION delegates; REVOKE RESTRICT refuses on dependents; CASCADE removes them.",
+    ],
+  },
+  {
+    id: "python",
+    title: "Python + sqlite3 (L7)",
+    icon: "code",
+    table: {
+      head: ["API", "Use"],
+      rows: [
+        ["sqlite3.connect(':memory:' | file)", "open a database"],
+        ["conn.execute(sql, params)", "run with bound values"],
+        ["cur.fetchone / fetchmany(n) / fetchall", "one row / n rows / all rows"],
+        ["cur.description", "result column labels (aliases included)"],
+        ["pragma_table_info('t')", "schema metadata (names, types, pk)"],
+        ["with conn:", "commit on success, rollback on error"],
+        ["conn.executemany(sql, list)", "one template, many value pairs"],
+        ["conn.create_function(name, n, fn)", "register a Python function as SQL"],
+      ],
+    },
+    bullets: [
+      "NULL→None, INTEGER→int, REAL→float, TEXT/BLOB→str/bytes.",
+      "Bind values (?, (value,)); map structural choices (sort columns) to trusted identifiers.",
+      "Function = expression or FROM; procedure = CALL; trigger = data event.",
+      "Trigger: AFTER UPDATE OF … FOR EACH ROW WHEN … uses OLD/NEW; rolls back with its transaction.",
+    ],
+  },
+  {
+    id: "windows",
+    title: "Ranking & windows (L8)",
+    icon: "chart",
+    table: {
+      head: ["Function", "Ties (95, 80, 80, 75)"],
+      rows: [
+        ["RANK", "1, 2, 2, 4 (gap)"],
+        ["DENSE_RANK", "1, 2, 2, 3 (no gap)"],
+        ["ROW_NUMBER", "1, 2, 3, 4 (needs tie breaker)"],
+      ],
+    },
+    bullets: [
+      "OVER (PARTITION BY d ORDER BY x [ROWS frame]) — partition: who; order: sequence; frame: what the aggregate sees.",
+      "ROWS UNBOUNDED PRECEDING = running total; ROWS BETWEEN 1 PRECEDING AND CURRENT ROW = moving average.",
+      "Default frame with ORDER BY: ties move together (state frames explicitly).",
+      "GROUP BY collapses rows; OVER keeps rows and attaches the aggregate.",
+    ],
+  },
+  {
+    id: "olap",
+    title: "Recursion & OLAP (L8)",
+    icon: "grid",
+    table: {
+      head: ["Concept", "Remember"],
+      rows: [
+        ["WITH RECURSIVE", "anchor + step to a fixed point; UNION removes discovered nodes (cycle-safe)"],
+        ["Pivot", "SUM(CASE WHEN dim = v THEN 1 ELSE 0 END) per column"],
+        ["ROLLUP", "hierarchical: detail → subtotals → grand total (n+1 sets)"],
+        ["CUBE", "all combinations (2ⁿ sets), incl. semester-only totals"],
+        ["GROUPING(col)", "1 marks subtotal rows"],
+        ["Slice / drill down", "keep one dimension value / change summary level"],
+        ["read_sql_query", "df = pd.read_sql_query(sql, conn, params=(…)); edits never write back"],
+      ],
+    },
+  },
+  {
+    id: "checklist",
+    title: "Exam-day checklist",
+    icon: "flag",
+    bullets: [
+      "Read each question twice: what is one row of the answer (grain)?",
+      "NULL present? → three-valued logic; use IS NULL; distrust NOT IN.",
+      "Joining tables? → name the complete key before writing ON.",
+      "Counting? → say what COUNT counts (rows / values / distinct / real matches).",
+      "Writing algebra? → evaluate innermost first; show intermediate tables.",
+      "Money or 'both or neither'? → transaction/atomicity. Two users, no crash? → concurrency.",
+      "Recursive? → anchor, step, fixed point; UNION for cycle safety.",
+      "Window? → partition, order, frame. Ranking tie rule by the numbers.",
+      "Predict before you run; explain any difference from your prediction.",
+    ],
+  },
+];
