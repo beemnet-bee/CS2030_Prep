@@ -43,18 +43,31 @@ Dashboard has a **Reset progress** button.
 
 - **Quicksand** for UI text, **Cascadia Mono** for code (both bundled locally via
   Fontsource — no CDN needed for fonts).
-- Theme accent **`#81f700`** (vivid lime) with a mint gradient partner; light mode by
-  default and a dark mode where the lime pops on near-black green surfaces
+- **Single-hue theme: every accent derives from `#81f700`** (vivid lime) plus
+  neutrals — tints/shades of the lime for gradients, progress, highlights; neutral
+  gray-greens for warnings and wrong answers. No foreign hues anywhere. Light mode
+  by default and a dark mode where the lime pops on near-black green surfaces
   (moon/sun toggle in the navbar).
-- **Splash screen** on every page load: lime logo pop, sweeping progress bar,
-  auto-dismisses after ~2 s (click to skip).
+- **Splash screen** on every page load: lime logo pop with a floating badge and
+  sweeping progress bar. Page scroll is locked while it shows (no scrollbar), then
+  it zooms/blurs away while the app rises in beneath it — a smooth crossfade
+  handoff (~2 s total, click to skip).
+- **Page transitions**: every navigation replays a smooth rise-and-fade via a
+  route-keyed transition shell.
+- **Floating pill navbar**: the top nav is a detached, rounded, frosted-glass pill
+  (max-width, centered) — not a full-width bar.
+- **Side drawer on mobile** (≤900 px): a hamburger opens a right-side drawer with
+  all pages plus an **expandable Lectures menu** listing all 8 lectures; closes on
+  navigation, backdrop click, or Escape, and locks body scroll while open.
+- **Dynamic ambient background**: three slow-drifting lime orbs plus a faint dot
+  grid behind every page (disabled under `prefers-reduced-motion`).
 - **Floating compiler button** pinned to the right edge, vertical middle, on every
   page — one tap opens the Compiler.
 - All icons are hand-drawn inline SVGs — no emoji, no keyboard glyphs.
-- Animations: splash, page fades, rising cards, animated progress bars and donut,
-  floating hero glows, pop-in checkmarks, FAB pulse ring.
-- Fully responsive: the navbar wraps into a scrollable second row on phones, grids
-  collapse, tables scroll, and the parts rail stacks above the content.
+- Other animations: rising cards, animated progress bars and donut, floating hero
+  glows, pop-in checkmarks, FAB pulse ring.
+- Fully responsive: grids collapse, tables scroll, and the parts rail stacks above
+  the content on phones.
 
 ## Run it
 
@@ -103,6 +116,7 @@ src/
   components/
     Icons.jsx                # hand-drawn SVG icon set
     Splash.jsx               # animated splash screen
+    AmbientBackground.jsx    # drifting lime orbs + dot grid behind every page
     FloatingCompilerButton.jsx  # right-edge floating button → Compiler
     ui.jsx                   # DataTable, Callout, CodeBlock, ProgressBar
     CodeRunner.jsx           # editable, runnable code editor

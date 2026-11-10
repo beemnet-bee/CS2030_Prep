@@ -165,7 +165,7 @@ export default function LecturePage() {
                   className={`rail-item${l.num === lecture.num ? " active" : ""}`}
                   style={{ display: "flex", textDecoration: "none", color: "inherit" }}
                 >
-                  <span className="lecture-num" style={{ background: l.accent, width: 24, height: 24, fontSize: 12, borderRadius: 8 }}>
+                  <span className="lecture-num" style={{ width: 24, height: 24, fontSize: 12, borderRadius: 8 }}>
                     {l.num}
                   </span>
                   <span className="rail-label">{l.title}</span>

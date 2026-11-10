@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import Icon from "./Icons.jsx";
 
 // Animated splash screen shown once per page load. Click anywhere to skip.
-export default function Splash({ onDone }) {
+// Timeline: leave starts at 1.35s, the app reveal begins beneath it at 1.5s
+// (crossfade), and the splash unmounts at ~2.05s.
+export default function Splash({ onReveal, onDone }) {
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setLeaving(true), 1400);
-    const t2 = setTimeout(() => onDone(), 2000);
+    const t1 = setTimeout(() => setLeaving(true), 1350);
+    const t2 = setTimeout(() => onReveal(), 1500);
+    const t3 = setTimeout(() => onDone(), 2050);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      clearTimeout(t3);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

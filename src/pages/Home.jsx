@@ -71,7 +71,7 @@ export default function Home() {
           {lectures.map((l) => (
             <Link key={l.num} to={`/lectures/${l.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="card card-hover lecture-card">
-                <div className="lecture-num" style={{ background: l.accent }}>
+                <div className="lecture-num">
                   {l.num}
                 </div>
                 <div>

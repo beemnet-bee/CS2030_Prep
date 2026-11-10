@@ -5,7 +5,6 @@ export const lecture02 = {
   title: "The Relational Model and Relational Algebra",
   tagline: "Tuples, keys, and the algebra σ, Π, ⋈, ∪, − that powers every query.",
   minutes: 30,
-  accent: "#8b5cf6",
   icon: "layers",
   objectives: [
     "Explain relation structure using schemas, attributes, domains, tuples, and nulls",

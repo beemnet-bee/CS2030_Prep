@@ -5,7 +5,6 @@ export const lecture06 = {
   title: "Transactions, Constraints, and Access",
   tagline: "Keep changes reliable with ACID, encode relationship policies, and grant only what is needed.",
   minutes: 30,
-  accent: "#f43f5e",
   icon: "shield",
   objectives: [
     "Group changes with COMMIT and ROLLBACK",

@@ -5,7 +5,6 @@ export const lecture01 = {
   title: "Introduction to Database Systems",
   tagline: "What a DBMS is, why plain files fail, and what is inside the engine.",
   minutes: 25,
-  accent: "#6366f1",
   icon: "database",
   objectives: [
     "Explain what a database system is",

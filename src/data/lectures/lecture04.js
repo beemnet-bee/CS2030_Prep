@@ -5,7 +5,6 @@ export const lecture04 = {
   title: "Joins and Aggregation",
   tagline: "Match related rows, follow complete composite keys, and build trustworthy reports.",
   minutes: 35,
-  accent: "#14b8a6",
   icon: "branch",
   objectives: [
     "Write explicit joins using keys and aliases",

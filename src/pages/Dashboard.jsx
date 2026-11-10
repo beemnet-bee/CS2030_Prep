@@ -116,7 +116,7 @@ export default function Dashboard() {
             const quiz = quizzes[l.num];
             return (
               <div className="lecture-row" key={l.num}>
-                <div className="lecture-num" style={{ background: l.accent }}>{l.num}</div>
+                <div className="lecture-num">{l.num}</div>
                 <div>
                   <div className="name">
                     <Link to={`/lectures/${l.slug}`} style={{ color: "inherit" }}>{l.title}</Link>

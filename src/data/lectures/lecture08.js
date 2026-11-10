@@ -5,7 +5,6 @@ export const lecture08 = {
   title: "Recursive Queries and Data Analysis",
   tagline: "Follow relationships to a fixed point, rank with windows, and summarise like an analyst.",
   minutes: 35,
-  accent: "#d946ef",
   icon: "chart",
   objectives: [
     "Trace direct and indirect prerequisites",

@@ -5,7 +5,6 @@ export const lecture07 = {
   title: "SQL from Python and Database Routines",
   tagline: "Connections, cursors, safe parameters, metadata, functions, procedures and triggers.",
   minutes: 30,
-  accent: "#22c55e",
   icon: "code",
   objectives: [
     "Execute SQL and fetch results from Python",

@@ -5,7 +5,6 @@ export const lecture05 = {
   title: "Subqueries, Set Operations, and Views",
   tagline: "Combine results, test membership safely, and reuse queries as views.",
   minutes: 30,
-  accent: "#f59e0b",
   icon: "layers",
   objectives: [
     "Combine results with set operations",

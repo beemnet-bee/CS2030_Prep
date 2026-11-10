@@ -22,7 +22,7 @@ export default function Lectures() {
             return (
               <Link key={l.num} to={`/lectures/${l.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
                 <div className="card card-hover lecture-card" style={{ height: "100%" }}>
-                  <div className="lecture-num" style={{ background: l.accent }}>{l.num}</div>
+                  <div className="lecture-num">{l.num}</div>
                   <div style={{ flex: 1 }}>
                     <div className="flex justify-between">
                       <h3>{l.title}</h3>

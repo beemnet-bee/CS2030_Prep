@@ -136,6 +136,20 @@ const paths = {
   ),
   moon: <path d="M21 13.5A9 9 0 1 1 10.5 3 7 7 0 0 0 21 13.5z" />,
   zap: <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" />,
+  menu: (
+    <>
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M4 17h16" />
+    </>
+  ),
+  "chevron-down": <path d="m6 9 6 6 6-6" />,
+  home: (
+    <>
+      <path d="m3 11 9-8 9 8" />
+      <path d="M5 10v10h5v-6h4v6h5V10" />
+    </>
+  ),
   layers: (
     <>
       <path d="m12 2 9 5-9 5-9-5 9-5z" />

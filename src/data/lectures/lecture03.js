@@ -5,7 +5,6 @@ export const lecture03 = {
   title: "SQL Basics and Table Definitions",
   tagline: "Read data, shape results, reason about NULL, and define reliable tables.",
   minutes: 35,
-  accent: "#0ea5e9",
   icon: "terminal",
   objectives: [
     "Translate requests into simple SQL queries",
